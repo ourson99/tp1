@@ -1,0 +1,8 @@
+A partir du dossier principal -> 
+
+D:\FrancisLemay\tech-prog-bart-labo\Tools\kmake_bit\kmake.exe --from . -v vs2019
+
+Drag kmake.exe du folder techniquesprog
+
+
+													Bonne semaine
