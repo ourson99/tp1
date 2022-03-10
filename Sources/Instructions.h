@@ -1,4 +1,6 @@
 /*
+https://gist.github.com/mundusnine/e4b81b96bbf09edb1e521b724b6b0b47
+
 
 Liste de "Features":
 - Utiliser une structure de données qui vous permet d'ajouter dynamiquement des informations à l'inventaire
