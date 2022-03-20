@@ -27,5 +27,15 @@ int main()
 
 	printf("%s\n", FindObject.name);
 
+	BubbleSort(List);
+
+	ShowList(List);
+
+	RemoveByName(List, "Dagger");
+
+	printf("\n");
+
+	ShowList(List);
+
 	return 0;
 }

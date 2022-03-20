@@ -35,3 +35,7 @@ Object NameFind(List* header, char* name);
 void RemoveByName(List* header, char* name);
 
 void BubbleSort(List* header);
+
+void ShowList(List* header);
+
+int ListSize(List* header);
