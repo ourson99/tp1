@@ -15,15 +15,23 @@ typedef Node List;
 typedef struct Object Object;
 struct Object
 {
-	int itemID; // Position Item - Peut servir de Top pour savoir cb d'objets il y a
+	int itemID;
 	char* name;
 	float price;
 };
 
 
 
+List* CreateList();
 
+Object CreateObject(int itemID, char* itemName, float price);
 
-int Insert(List* header, void* data, int top);
+int Insert(List* header, void* data, int itemID);
 
-List CreateList();
+Node* PosFind(List* header, char* pos);
+
+Object NameFind(List* header, char* name);
+
+void RemoveByName(List* header, char* name);
+
+void BubbleSort(List* header);

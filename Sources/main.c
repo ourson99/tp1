@@ -5,8 +5,27 @@
 
 int main()
 {
-	int top = 0;
+	int ItemID = 0;
+	List* List = CreateList();
 
+	Object NewObject1 = CreateObject(ItemID, "Sword", 10);
+	ItemID = Insert(List, &NewObject1, ItemID);
+
+	Object NewObject2 = CreateObject(ItemID, "Axe", 20);
+	ItemID = Insert(List, &NewObject2, ItemID);
+
+	Object NewObject3 = CreateObject(ItemID, "Dagger", 2);
+	ItemID = Insert(List, &NewObject3, ItemID);
+
+	Object NewObject4 = CreateObject(ItemID, "Bat", 70);
+	ItemID = Insert(List, &NewObject4, ItemID);
+
+	Object NewObject5 = CreateObject(ItemID, "Scissors", 200);
+	ItemID = Insert(List, &NewObject5, ItemID);
+
+	Object FindObject = NameFind(List, "Bat");
+
+	printf("%s\n", FindObject.name);
 
 	return 0;
 }
