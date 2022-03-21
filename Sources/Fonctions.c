@@ -111,9 +111,13 @@ void RemoveByName(List* header, char* name)
 		{
 			if (temp == header->prev) // Si temp est le dernier elem de la liste
 			{
-				temp->prev->next = NULL;
+				Node* prev = temp->prev;
+				prev->next = NULL;
+
 				header->prev = temp->prev;
+
 				temp->data = NULL;
+				temp->prev = NULL;
 			}
 			else
 			{
@@ -193,9 +197,6 @@ void BubbleSort(List* header)
 			temp = temp->next;
 		}
 	}
-
-
-
 }
 
 void ShowList(List* header)
