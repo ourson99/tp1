@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 List* CreateList()
 {
 	List* header = malloc(sizeof(List));
@@ -12,17 +13,17 @@ List* CreateList()
 	return header;
 }
 
-Object CreateObject(int itemID, char* itemName, float price)
+Object CreateObject(char* itemName, float price)
 {
-	Object NewObject = { itemID, itemName, price };
+	Object NewObject = {itemName, price };
 
 	return NewObject;
 }
 
-
-int Insert(List* header ,void* data, int itemID)
+void Insert(List* header ,void* data)
 {
 	Node* NewData = malloc(sizeof(Node));
+	
 	if (header->next == NULL)
 	{
 		header->next = NewData;
@@ -31,9 +32,9 @@ int Insert(List* header ,void* data, int itemID)
 		NewData->next = NULL;
 
 		NewData->data = data;
+		Object* a = NewData->data;
 
-		int top = itemID +1;
-		return top;
+		return;
 	}
 	else
 	{
@@ -45,12 +46,12 @@ int Insert(List* header ,void* data, int itemID)
 
 		NewData->data = data;
 
-		int top = itemID + 1;
-		return top;
+		
+		return;
 	}
 }
 
-Node* PosFind(List* header, char* pos) // À compléter
+Object PosFind(List* header, int pos) // pos 1 = data 1
 {
 	if (header->next == NULL)
 	{
@@ -61,19 +62,26 @@ Node* PosFind(List* header, char* pos) // À compléter
 	Node* temp = header->next;
 	Object* recherche = temp->data;
 
-	while (temp->data)
+	for (int i = 0; i < pos - 1; i++)
 	{
-
+		if (temp == NULL)
+		{
+			break;
+		}
+		temp = temp->next;
+		recherche = temp->data;
 	}
 
-}
 
+	Object found = *recherche;
+	return found;
+}
 
 Object NameFind(List* header, char* name) // Fonctionnel
 {
+	// Si header vide
 	if (header->next == NULL)
 	{
-		printf("List vide\n");
 		return;
 	}
 
@@ -229,5 +237,129 @@ void ShowList(List* header)
 
 int ListSize(List* header)
 {
+	if (header->next == NULL)
+	{
+		return 0;
+	}
 
+	Node* temp = header->next;
+	int size = 1;
+	while (temp->next != NULL)
+	{
+		size++;
+		temp = temp->next;
+	}
+	return size;
+}
+
+char* FileReader(List* inventaire, int *size)
+{
+	FILE* fichier;
+	fichier = fopen("data.csv", "r"); // Regarder le path
+	
+	char* contenuFichier;
+
+	// Get file length
+	fseek(fichier, 0, SEEK_END);
+	int fileSize = ftell(fichier);
+	fseek(fichier, 0, SEEK_SET);
+	
+	contenuFichier = malloc(fileSize);
+
+	fread(contenuFichier, fileSize, 1, fichier);
+
+	fclose(fichier);
+
+	*size = fileSize;
+	return contenuFichier;
+
+}
+
+int ItemCreator(List* inventaire, char* filecpy, int filePos)
+{
+	Object* NewObject = malloc(sizeof(NewObject));
+	NewObject->name = malloc(sizeof(char) * 35);
+	for (int i = 0; i < 35; i++)
+	{
+		NewObject->name[i] = 0;
+	}
+
+	char tempNumb[5] = { 0 };
+
+	int counter = 0;
+	int i = filePos;
+	int tempW = 0;
+
+	while (filecpy[i] != ',') // Skip Name
+	{
+		i++;
+	}
+	counter++;
+	i += 2;
+
+	while (filecpy[i] != ',') // Write what name is
+	{
+		NewObject->name[tempW] = filecpy[i];
+		tempW++;
+		i++;
+	}
+
+	counter++;
+	i += 2;
+	tempW = 0;
+
+	while (filecpy[i] != ',') // Skip value
+	{
+		i++;
+	}
+
+	counter++;
+	i += 2;
+
+	while (filecpy[i] != '\n' && filecpy[i] != ' ' && filecpy[i] != 0) // Write what number is
+	{
+		tempNumb[tempW] = filecpy[i];
+		tempW++;
+		i++;
+	}
+
+	NewObject->price = atoi(tempNumb);
+	Insert(inventaire, NewObject);
+
+	// Si on est a la fin du fichier
+	if (filecpy[i + 1] == 0 && filecpy[i + 2] == 0)
+	{
+		
+		return 713705; 
+	}
+	else
+	{
+		return i;
+	}
+}
+
+Object RandomAdd(List* inventaire, int choice)
+{
+	// Si l'inventaire est vide
+	if (inventaire->next == NULL)
+	{
+		return;
+	}
+
+	Node* temp = inventaire->next;
+
+
+	for (int i = 0; i < choice; i++)
+	{
+		temp = temp->next;
+	}
+
+
+	if (temp != NULL)
+	{
+		Object* item = temp->data;
+		Object retour = *item;
+		return retour;
+	}
+	
 }

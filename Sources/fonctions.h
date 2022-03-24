@@ -15,8 +15,7 @@ typedef Node List;
 typedef struct Object Object;
 struct Object
 {
-	int itemID;
-	char* name;
+	char *name;
 	float price;
 };
 
@@ -24,11 +23,11 @@ struct Object
 
 List* CreateList();
 
-Object CreateObject(int itemID, char* itemName, float price);
+Object CreateObject(char* itemName, float price);
 
-int Insert(List* header, void* data, int itemID);
+void Insert(List* header, void* data);
 
-Node* PosFind(List* header, char* pos);
+Object PosFind(List* header, char* pos);
 
 Object NameFind(List* header, char* name);
 
@@ -39,3 +38,9 @@ void BubbleSort(List* header);
 void ShowList(List* header);
 
 int ListSize(List* header);
+
+char* FileReader(List* inventaire, int* size);
+
+int ItemCreator(List* inventaire, char* filecpy, int i);
+
+Object RandomAdd(List* inventaire, int choice);

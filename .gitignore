@@ -1,3 +1,5 @@
 build
 Deployment/**
 !Deployment/keepme
+!Deployment/data.csv
+.git
